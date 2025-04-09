@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "MainMenu",
+            "request": "launch",
+            "mainClass": "MainMenu",
+            "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+        },
+        {
+            "type": "java",
+            "name": "buttons2",
+            "request": "launch",
+            "mainClass": "buttons2",
+            "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+        },
+        {
+            "type": "java",
+            "name": "GameScene",
+            "request": "launch",
+            "mainClass": "GameScene",
+            "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+        },
+        {
+            "type": "java",
+            "name": "InstructionsScene",
+            "request": "launch",
+            "mainClass": "InstructionsScene",
+            "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+        }
+    ]
+}
