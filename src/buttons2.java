@@ -56,9 +56,7 @@ public class buttons2 extends Application {
             Pile fromPile = lastMove.getFromPile();
             Pile toPile = lastMove.getToPile();
     
-            // Move the card back
-            toPile.removeCard(card);
-            fromPile.addCard(card);
+            
     
             System.out.println("Undo: Moved " + card + " back to " + fromPile);
         } else {

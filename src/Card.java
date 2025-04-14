@@ -1,37 +1,79 @@
 public class Card {
-    private String rank;
-    private String suit;
-    private int value;
-    private boolean faceUp = false;
+    private final Deck.Rank rank;
+    private final Deck.Suit suit;
+    private boolean faceUp;
 
-    public Card(String rank, String suit, int value) {
+    
+    
+    public Card(Deck.Rank rank, Deck.Suit suit) {
         this.rank = rank;
         this.suit = suit;
-        this.value = value;
         this.faceUp = false;
     }
-    public String rank() {
+
+    public Deck.Rank getRank() {
         return rank;
     }
-    public String suit() {
+
+    public Deck.Suit getSuit() {
         return suit;
     }
-    public int value() {
-        return value;
-    }
+
     public boolean isFaceUp() {
         return faceUp;
     }
-    public boolean matches(Card otherCard) { // 
-        boolean hasSameSuit = this.suit.equals(otherCard.suit()); // Check if suits are the same
-        boolean hasSameRank = this.rank.equals(otherCard.rank()); // Check if ranks are the same
-        return this.suit.equals(otherCard.suit()) && 
-               this.rank.equals(otherCard.rank()) &&
-               this.value == otherCard.value(); // Check if values are the same
+    public void setFaceUp(boolean faceUp) {
+        this.faceUp = faceUp;
     }
+
+    public void flip() {
+        faceUp = !faceUp;
+    }
+    public boolean isRed() {
+        return suit == Deck.Suit.HEARTS || suit == Deck.Suit.DIAMONDS;
+    }
+    public boolean isBlack() {
+        return suit == Deck.Suit.SPADES || suit == Deck.Suit.CLUBS;
+    }
+    public boolean isAce() {
+        return rank == Deck.Rank.ACE;
+    }
+    public boolean isKing() {
+        return rank == Deck.Rank.KING;
+    }
+    public boolean isQueen() {
+        return rank == Deck.Rank.QUEEN;
+    }
+    public boolean isJack() {
+        return rank == Deck.Rank.JACK;
+    }
+    public boolean canStack(Card other) {
+        if (this.isRed() && other.isBlack()) {
+            return this.rank.ordinal() == other.rank.ordinal() + 1;
+        } else if (this.isBlack() && other.isRed()) {
+            return this.rank.ordinal() == other.rank.ordinal() + 1;
+        }
+        return false;
+    }
+    public boolean canStackOnFoundation(Card other) {
+        if (this.isRed() && other.isRed()) {
+            return this.rank.ordinal() == other.rank.ordinal() + 1;
+        } else if (this.isBlack() && other.isBlack()) {
+            return this.rank.ordinal() == other.rank.ordinal() + 1;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
-        return rank + " of " + suit + " (point value = " + value + ")" + Integer.toString(this.value) + " "; // Return a string representation of the card
-
+        return rank + " of " + suit;
+    }
+    //card images
+    public String getImagePath() {
+        if (!faceUp) {
+            return "images/card_back.png"; // Path to the card back image
+        } else {
+            return "images/" + rank.toString().toLowerCase() + " of " + suit.toString().toLowerCase() + ".png";
+        }
     }
 }

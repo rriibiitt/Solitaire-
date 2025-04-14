@@ -28,7 +28,6 @@ public class MainMenu extends Application {
 
         
         startButton.setOnAction(e -> {
-            // Code to switch to the game scene goes here
             try {
                 GameScene gameScene = new GameScene();
                 gameScene.start(primaryStage);
@@ -40,7 +39,6 @@ public class MainMenu extends Application {
 
 
         instructionsButton.setOnAction(e -> {
-            // Code to show instructions goes here
             try {
                 InstructionsScene instructionScene = new InstructionsScene();
                 instructionScene.start(primaryStage);
@@ -50,7 +48,6 @@ public class MainMenu extends Application {
             System.out.println("Showing instructions");
         });
         exitButton.setOnAction(e -> {
-            // Code to exit the game goes here
             System.out.println("Exiting game");
             primaryStage.close();
         });
