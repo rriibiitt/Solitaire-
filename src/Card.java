@@ -1,7 +1,8 @@
 import javafx.scene.paint.Color;
 import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
 
-public class Card {
+public class Card extends StackPane{
     public enum Rank {
         ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
     }
@@ -18,11 +19,39 @@ public class Card {
         this.suit = suit;
         this.rank = rank;
         this.isFaceUp = false;
+
+        setOnMouseClicked(e -> handleClick());
     }
     
+    private void handleClick() {
+        if(!isFaceUp) {
+            return;
+
+        }
+        System.out.println("Card clicked: " + this.toString());
+    }
+
     
     public void flip() {
         isFaceUp = !isFaceUp;
+    }
+
+    public void setFaceUp(boolean faceUp) {
+        isFaceUp = faceUp;
+        updateVisual();
+    }
+
+    private void updateVisual() {
+        if (isFaceUp){
+            // Update the visual representation to show the card face
+            getChildren().clear();
+            getChildren().add(new javafx.scene.control.Label(this.toString()));
+        } else {
+            // Update the visual representation to show the card back
+            getChildren().clear();
+            getChildren().add(new javafx.scene.control.Label("Card Back"));
+        }
+        System.out.println("Visual updated for card: " + this.toString());
     }
 
     public boolean isFaceUp() {

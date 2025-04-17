@@ -1,18 +1,10 @@
-## Getting Started
+Team Name: Solitaire
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Team Members: Aria Denlar-O’Dea and Alison Siemen
 
-## Folder Structure
+This is a digital, Klondike-style solitaire game. To play, you simply click the card you want to move, then click the spot you would like to move it to. If it is a valid move, the card will go to the place you clicked. The point of the game is to sort all cards into foundation piles of the same suite, in ascending order starting with the Aces. There are seven tableau piles that you can use to hold your cards until you are ready to move them into the foundation piles. To place a card into these piles, you must place it on top of a card of a value one greater than the card you intend to move, and the opposite color. For example, a six of hearts can be placed on either a seven of spades or a seven of clubs. To win, simply move all the cards into the foundation piles.
 
-The workspace contains two folders by default, where:
+The purpose of this project is to provide a mentally stimulating way to relax for stressed out students.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Slideshow:
+https://docs.google.com/presentation/d/1G0vkj9L0mrouin01nHU2J1eyTP5y8qbA3bjcGBQO5DI/edit?slide=id.g3404f0bdf42_0_1919#slide=id.g3404f0bdf42_0_1919

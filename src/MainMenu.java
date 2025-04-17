@@ -59,7 +59,7 @@ public class MainMenu extends Application {
         layout.setAlignment(Pos.CENTER);
         titleLabel.setStyle("-fx-text-fill:rgb(24, 24, 24);"); 
 
-        Scene scene = new Scene(layout, 600, 400);
+        Scene scene = new Scene(layout, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
         
