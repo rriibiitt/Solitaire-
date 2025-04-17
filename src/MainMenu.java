@@ -29,7 +29,7 @@ public class MainMenu extends Application {
         
         startButton.setOnAction(e -> {
             try {
-                GameScene gameScene = new GameScene();
+                GameView gameScene = new GameView();
                 gameScene.start(primaryStage);
             } catch (Exception ex) {
                 ex.printStackTrace();

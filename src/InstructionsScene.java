@@ -46,9 +46,9 @@ public class InstructionsScene extends Application{
 
             startButton2.setOnAction(e -> {
                 try {
-                    GameScene gameScene = new GameScene();
+                    GameView gameView = new GameView();
                     Stage primaryStage = (Stage) startButton2.getScene().getWindow(); // Get the current stage
-                    gameScene.start(primaryStage);
+                    gameView.start(primaryStage);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

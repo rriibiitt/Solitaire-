@@ -1,4 +1,5 @@
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 import java.util.Arrays;
 
@@ -42,4 +43,14 @@ public class Deck {
         initializeDeck();
         shuffle();
     }
+    public void addCard(Card card) {
+        cards.push(card);
+    }
+
+    public void addCards(List<Card> cardsToAdd) {
+        for (Card card : cardsToAdd) {
+            addCard(card);
+        }
+    }
+
 }

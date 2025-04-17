@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -26,11 +27,19 @@ public class GameView extends Application {
         private Stack<Move> moveHistory = new Stack<>();
 
     private Group root;
-    private StackPane buttonContainer;
-
+    private Pile wastePile;
+    private Rectangle deckRect;
+    private Deck gameDeck; // so we can use it outside dealCards()
+    
     @Override
     public void start(Stage primaryStage) {
+        BorderPane rootLayout = new BorderPane();
         root = new Group();
+        Pane backgroundPane = new Pane(root);
+        backgroundPane.setStyle("-fx-background-color: rgb(32,123,76);"); // set green background
+        rootLayout.setCenter(backgroundPane);
+
+
 
         Deck deck = new Deck();
         dealCards(deck);
@@ -40,14 +49,11 @@ public class GameView extends Application {
         Button undoButton = new Button("Undo");
         Button restartButton = new Button("Restart");
 
-        buttonContainer = new StackPane();
-        HBox buttonBox = new HBox(10, undoButton, restartButton); // Horizontal layout for buttons
+        HBox buttonBox = new HBox(10, undoButton, restartButton);
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
-        buttonContainer.getChildren().add(buttonBox);
-        buttonContainer.setAlignment(Pos.BOTTOM_RIGHT); // Align to the bottom center of the screen
+        buttonBox.setPadding(new Insets(10));
+        rootLayout.setBottom(buttonBox); // Align to the bottom center of the screen
 
-        // Add button container to the root
-        root.getChildren().add(buttonContainer);
         
         undoButton.setOnAction(e -> {
             System.out.println("Undoing last move...");
@@ -69,29 +75,53 @@ public class GameView extends Application {
             foundationPiles.clear();
             viewToCard.clear();
             Deck newDeck = new Deck();
+            this.gameDeck = new Deck();
             addDeckAndFoundations();
             dealCards(newDeck);
             root.getChildren().addAll(undoButton, restartButton); // re-add buttons
+
         });
+        
         
         // Add buttons to root
 
         // Set up the scene and stage
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(rootLayout, 800, 600);
         addDeckAndFoundations();
         primaryStage.setScene(scene);
         scene.setFill(Color.rgb(32, 123, 76));
         primaryStage.show();
     }
     private void restoreGameState(Move previousState) {
-        if (previousState != null) {
-            // Restore the card to its previous position
-            previousState.getFromPile().addCard(previousState.getCard());
-            previousState.getToPile().removeCard(previousState.getCard());
-            System.out.println("Card " + previousState.getCard() + " moved back to " + previousState.getCard());
+        Card card = previousState.getCard();
+        Pile from = previousState.getFromPile();
+        Pile to = previousState.getToPile();
+    
+        to.removeCard(card);
+        from.addCard(card);
+    
+        // Move the ImageView back
+        ImageView view = null;
+        for (Map.Entry<ImageView, Card> entry : viewToCard.entrySet()) {
+            if (entry.getValue() == card) {
+                view = entry.getKey();
+                break;
+            }
         }
-        System.out.println("Restoring game state to: " + previousState);
+    
+        if (view != null) {
+            double newX = from.getX();
+            double newY = (from.getType() == Pile.PileType.TABLEAU)
+                    ? from.getY() + (from.getCards().size() - 1) * 30
+                    : from.getY();
+    
+            view.setX(newX);
+            view.setY(newY);
+        }
+    
+        System.out.println("Undo: Moved " + card + " back to " + from.getType());
     }
+    
     public static void main(String[] args) {
         launch(args);
     }
@@ -174,6 +204,7 @@ public class GameView extends Application {
         List<Pile> allPiles = new ArrayList<>();
         allPiles.addAll(tableauPiles);
         allPiles.addAll(foundationPiles);
+        allPiles.add(wastePile);
     
         for (Pile pile : allPiles) {
             double dx = cardView.getX() - pile.getX();
@@ -188,6 +219,7 @@ public class GameView extends Application {
                             break;
                         }
                     }
+
     
                     // Add to new pile
                     pile.addCard(card);
@@ -217,13 +249,20 @@ public class GameView extends Application {
     
     
     private void addDeckAndFoundations() {
-        // Deck placeholder
-        Rectangle deck = new Rectangle(CARD_WIDTH, CARD_HEIGHT);
-        deck.setFill(Color.DARKBLUE);
-        deck.setX(20);
-        deck.setY(20);
-        root.getChildren().add(deck);
-        
+        deckRect = new Rectangle(CARD_WIDTH, CARD_HEIGHT);
+        deckRect.setFill(Color.DARKBLUE);
+        deckRect.setX(20);
+        deckRect.setY(20);
+        root.getChildren().add(deckRect);
+    
+        // Add click event to draw from deck
+        deckRect.setOnMouseClicked(e -> drawFromDeck());
+    
+        // Waste pile placeholder
+        double wasteX = deckRect.getX() + CARD_WIDTH + PADDING;
+        double wasteY = deckRect.getY();
+        wastePile = new Pile(Pile.PileType.WASTE, wasteX, wasteY);
+        root.getChildren().add(wastePile.getRectangle());
     
         // Foundation piles
         for (int i = 0; i < 4; i++) {
@@ -235,10 +274,48 @@ public class GameView extends Application {
             foundationPile.getRectangle().setStroke(Color.GOLD);
             foundationPile.getRectangle().setStrokeWidth(2);
             foundationPile.getRectangle().setFill(Color.LIGHTGRAY);
-        }    
+        }
     }
+    private void drawFromDeck() {
+        if (gameDeck.isEmpty()) {
+            if (wastePile.isEmpty()) {
+                System.out.println("No cards to recycle.");
+                return;
+            }
+    
+            // ♻️ Recycle waste pile
+            List<Card> wasteCards = new ArrayList<>(wastePile.getCards());
+            for (Card card : wasteCards) {
+                card.flip(); // Flip back to face-down
+                gameDeck.addCard(card); // Return to deck
+            }
+            wastePile.clear(); // Clear the waste pile
+            removeWasteImages();
+            System.out.println("Recycled waste pile into deck.");
+            return;
+        }
+    
+        // 🃏 Draw a card from the deck
+        Card card = gameDeck.draw();
+        card.flip(); // Face-up
+        wastePile.addCard(card);
+        addCardImage(card, wastePile.getX(), wastePile.getY());
+    }
+    private void removeWasteImages() {
+        List<Node> toRemove = new ArrayList<>();
+        for (Map.Entry<ImageView, Card> entry : viewToCard.entrySet()) {
+            if (wastePile.getCards().contains(entry.getValue())) {
+                toRemove.add(entry.getKey());
+            }
+        }
+        root.getChildren().removeAll(toRemove);
+        toRemove.forEach(node -> viewToCard.remove((ImageView) node));
+    }
+    
+    
     private void dealCards(Deck deck) {
         double startX = 20;
+        this.gameDeck= deck;
         double y = 175; // Starting Y-position for the first pile
         
         for (int pileIndex = 0; pileIndex < 7; pileIndex++) {
@@ -263,6 +340,7 @@ public class GameView extends Application {
 
         }
     }
+    
     
     
     
