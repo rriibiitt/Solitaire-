@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "images",
+            "request": "launch",
+            "mainClass": "images",
+            "projectName": "Solitaire_e6609e4a"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -36,6 +43,20 @@
             "name": "InstructionsScene",
             "request": "launch",
             "mainClass": "InstructionsScene",
+            "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+        },
+        {
+            "type": "java",
+            "name": "SolitaireGameScreen",
+            "request": "launch",
+            "mainClass": "SolitaireGameScreen",
+            "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
+        },
+        {
+            "type": "java",
+            "name": "GameView",
+            "request": "launch",
+            "mainClass": "GameView",
             "vmArgs": "--module-path c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing"
         }
     ]
