@@ -1,5 +1,6 @@
 {
     "java.project.sourcePaths": [
+<<<<<<< HEAD
         "src",
         "cardimages"
     ],
@@ -16,3 +17,13 @@
         "c:\\Users\\student\\Desktop\\javafx21\\javafx-sdk-21.0.6\\lib\\javafx-swt.jar"
     ]
 }
+=======
+        "src"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.project.outputPath": "bin",
+  }
+  
+>>>>>>> f521545800693700b5ea8cb2968ff8ddeae259cb

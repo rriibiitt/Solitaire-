@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
@@ -35,3 +36,38 @@
         }
     ]
 }
+=======
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "SolitaireTest",
+        "request": "launch",
+        "mainClass": "SolitaireTest",
+        "projectName": "SolitaireProject_a3bdb68"
+      },
+      {
+        "type": "java",
+        "name": "PileTest",
+        "request": "launch",
+        "mainClass": "PileTest",
+        "projectName": "SolitaireProject_a3bdb68"
+      },
+      {
+        "type": "java",
+        "name": "CardDeckTest",
+        "request": "launch",
+        "mainClass": "CardDeckTest",
+        "projectName": "SolitaireProject_a3bdb68"
+      },
+      {
+        "type": "java",
+        "name": "Launch Solitaire",
+        "request": "launch",
+        "mainClass": "SolitaireGUI",
+        "projectName": "SolitaireGameProject"
+      }
+    ]
+  }
+  
+>>>>>>> f521545800693700b5ea8cb2968ff8ddeae259cb
