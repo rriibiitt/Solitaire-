@@ -68,7 +68,7 @@ public class SolitaireLogic {
         return false;
     }
 
-    public boolean checkWin() {
+    public boolean checkWin() { // checks if all foundations are complete
         for (Pile foundation : foundations) {
             Card top = foundation.topCard();
             if (top == null || top.getValue() != 13) {

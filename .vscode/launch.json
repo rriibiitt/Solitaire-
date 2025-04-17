@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "SolitaireTest",
+        "request": "launch",
+        "mainClass": "SolitaireTest",
+        "projectName": "SolitaireProject_a3bdb68"
+      },
+      {
+        "type": "java",
+        "name": "PileTest",
+        "request": "launch",
+        "mainClass": "PileTest",
+        "projectName": "SolitaireProject_a3bdb68"
+      },
+      {
+        "type": "java",
+        "name": "CardDeckTest",
+        "request": "launch",
+        "mainClass": "CardDeckTest",
+        "projectName": "SolitaireProject_a3bdb68"
+      },
+      {
+        "type": "java",
+        "name": "Launch Solitaire",
+        "request": "launch",
+        "mainClass": "SolitaireGUI",
+        "projectName": "SolitaireGameProject"
+      }
+    ]
+  }
+  
